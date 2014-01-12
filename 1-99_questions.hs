@@ -58,3 +58,8 @@ flatten :: NestedList a -> [a]
 flatten (List []) = []
 flatten (Elem x) = [x]
 flatten (List xs) = foldr (\x acc -> (flatten x) ++ acc) [] xs
+
+compress :: (Eq a) => [a] -> [a]
+compress [] = []
+compress [x] = [x]
+compress (x:xs) = x : (compress $ dropWhile (== x) xs)
