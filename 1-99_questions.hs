@@ -39,6 +39,7 @@ myReverse (x:xs) = myReverse xs ++ [x]
 myReverse' :: [a] -> [a]
 myReverse' = foldl (flip (:)) []
 
+{----#6-----}
 isPalindrome :: (Eq a) => [a] -> Bool
 isPalindrome list = list == reverse list
 
@@ -52,6 +53,7 @@ isPalindrome' list = firstHalf == reverse secondHalf
 					half' = length (list) - half 
 					half = length (list) `div` 2
 
+{----#7-----}
 data NestedList a = Elem a | List [NestedList a]
 
 flatten :: NestedList a -> [a]
@@ -59,7 +61,14 @@ flatten (List []) = []
 flatten (Elem x) = [x]
 flatten (List xs) = foldr (\x acc -> (flatten x) ++ acc) [] xs
 
+{----#8-----}
 compress :: (Eq a) => [a] -> [a]
 compress [] = []
 compress [x] = [x]
 compress (x:xs) = x : (compress $ dropWhile (== x) xs)
+
+{----#9-----}
+pack :: (Eq a)=>[a] -> [[a]]
+pack [] = []
+pack [x] = [[x]]
+pack list@(x:xs) =  takeWhile(== x) list : pack(dropWhile (==x) list)
