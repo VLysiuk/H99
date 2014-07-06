@@ -72,3 +72,8 @@ pack :: (Eq a)=>[a] -> [[a]]
 pack [] = []
 pack [x] = [[x]]
 pack list@(x:xs) =  takeWhile(== x) list : pack(dropWhile (==x) list)
+
+{----#10----}
+encode :: (Eq a) => [a] -> [(Int, a)]
+encode [] = []
+encode list = map (\e -> (length e, head e)) $ pack list
