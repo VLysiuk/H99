@@ -77,3 +77,10 @@ pack list@(x:xs) =  takeWhile(== x) list : pack(dropWhile (==x) list)
 encode :: (Eq a) => [a] -> [(Int, a)]
 encode [] = []
 encode list = map (\e -> (length e, head e)) $ pack list
+
+{----#11----}
+data Element a = Multiple Int a | Single a
+encodeModified :: Eq a => [a] -> [Element a]
+encodeModified = map f . pack
+					where f x = if length x > 1 then Multiple length x, head x
+								else Single (head x)
