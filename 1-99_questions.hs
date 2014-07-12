@@ -79,8 +79,8 @@ encode [] = []
 encode list = map (\e -> (length e, head e)) $ pack list
 
 {----#11----}
-data Element a = Multiple Int a | Single a
+data Element a = Multiple Int a | Single a deriving (Show)
 encodeModified :: Eq a => [a] -> [Element a]
 encodeModified = map f . pack
-					where f x = if length x > 1 then Multiple length x, head x
+					where f x = if length x > 1 then Multiple (length x) (head x)
 								else Single (head x)
