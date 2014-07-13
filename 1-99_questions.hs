@@ -84,3 +84,10 @@ encodeModified :: Eq a => [a] -> [Element a]
 encodeModified = map f . pack
 					where f x = if length x > 1 then Multiple (length x) (head x)
 								else Single (head x)
+
+{----#12----}
+decodeModified :: Eq a => [Element a] -> [a]
+decodeModified [] = []
+decodeModified (x:xs) = case x of
+							Single e 	 -> e : decodeModified xs
+							Multiple c e -> replicate c e ++ decodeModified xs
