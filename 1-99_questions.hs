@@ -110,3 +110,7 @@ countHeadElement list@(x:xs) e c
 dupli :: [a] -> [a]
 dupli [] = []
 dupli (x:xs) = x : x : dupli xs
+
+{----#15----}
+repli :: [a] -> Int -> [a]
+repli list c = concatMap(\x -> replicate c x ) list
