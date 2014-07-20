@@ -91,3 +91,18 @@ decodeModified [] = []
 decodeModified (x:xs) = case x of
 							Single e 	 -> e : decodeModified xs
 							Multiple c e -> replicate c e ++ decodeModified xs
+
+{----#13----}
+encodeDirect :: Eq a => [a] -> [Element a]
+encodeDirect [] = []
+encodeDirect list@(x:xs) = headElement : encodeDirect remainingList
+							where
+								headElement = if (count > 1) then Multiple count x else Single x
+								(count, remainingList) = countHeadElement list x 0
+
+countHeadElement :: Eq a => [a] -> a -> Int -> (Int, [a])
+countHeadElement [] e c = (c, [])
+countHeadElement list@(x:xs) e c
+							| x == e = countHeadElement xs e (c + 1)
+							| otherwise = (c, list)
+
