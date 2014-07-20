@@ -114,3 +114,8 @@ dupli (x:xs) = x : x : dupli xs
 {----#15----}
 repli :: [a] -> Int -> [a]
 repli list c = concatMap(\x -> replicate c x ) list
+
+{----#16----}
+dropEvery :: [a] -> Int -> [a]
+dropEvery [] _ = []
+dropEvery list c = take (c-1) list ++ dropEvery (drop c list) c
