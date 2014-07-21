@@ -119,3 +119,24 @@ repli list c = concatMap(\x -> replicate c x ) list
 dropEvery :: [a] -> Int -> [a]
 dropEvery [] _ = []
 dropEvery list c = take (c-1) list ++ dropEvery (drop c list) c
+
+{----#17----}
+split :: [a] -> Int -> ([a], [a])
+split list count = (take count list, drop count list)
+
+-- recursive
+split' :: [a] -> Int -> ([a], [a])
+split' [] _ = ([], [])
+split' list count = (takeFirst list count 0, takeSecond list count 0)
+
+takeFirst :: [a] -> Int -> Int -> [a]
+takeFirst [] _ _ = []
+takeFirst (x:xs) count current
+						| current < count = x : takeFirst xs count (current + 1)
+						| otherwise = []
+
+takeSecond :: [a] -> Int -> Int -> [a]
+takeSecond [] _ _ = []
+takeSecond (x:xs) count current
+						| current >= count = x : takeSecond xs count (current + 1)
+						| otherwise = takeSecond	xs count (current + 1)
