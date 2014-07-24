@@ -140,3 +140,13 @@ takeSecond [] _ _ = []
 takeSecond (x:xs) count current
 						| current >= count = x : takeSecond xs count (current + 1)
 						| otherwise = takeSecond	xs count (current + 1)
+
+{----#18----}
+slice :: [a] -> Int -> Int -> [a]
+slice [] _ _ = []
+slice list i k = foldr sliceFilter [] $ zip [1..] list
+						where sliceFilter x xs =  if fst x >= i && fst x <= k then snd x : xs else xs
+
+-- using list comprehensions
+slice' :: [a] -> Int -> Int -> [a]
+slice' list i k = [x | (indx, x) <- zip [1..] list, indx >= i && indx <= k]
