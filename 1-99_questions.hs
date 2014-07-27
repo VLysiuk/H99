@@ -150,3 +150,14 @@ slice list i k = foldr sliceFilter [] $ zip [1..] list
 -- using list comprehensions
 slice' :: [a] -> Int -> Int -> [a]
 slice' list i k = [x | (indx, x) <- zip [1..] list, indx >= i && indx <= k]
+
+{----#19----}
+rotate :: [a] -> Int -> [a]
+rotate [] _ = []
+rotate list pos
+			| pos < 0 = rotateRight list $ normalize pos
+			| otherwise = rotateLeft list $ normalize pos
+				where
+					normalize p = abs p `mod` length list
+					rotateRight xs p = drop (length xs - p) xs ++ take (length xs - p) xs
+					rotateLeft xs p = drop p xs ++ take p xs
