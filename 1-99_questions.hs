@@ -161,3 +161,17 @@ rotate list pos
 					normalize p = abs p `mod` length list
 					rotateRight xs p = drop (length xs - p) xs ++ take (length xs - p) xs
 					rotateLeft xs p = drop p xs ++ take p xs
+
+{----#20----}
+removeAt :: Int -> [a] -> (a, [a])
+removeAt _ [] = error "list is empty"
+removeAt i list
+			| i < 1 || i > length list = error "index is out of range" 
+ 			| otherwise = (elem, remainings $ zip [1..] list)
+							where
+								elem = list !! (i - 1)
+								remainings = foldr(\x acc -> if (fst x /= i) then snd x : acc else acc) []
+
+-- point free but no error handling
+removeAt' :: Int -> [a] -> (a, [a])
+removeAt' n = (\(a, b) -> (head b, a ++ tail b)) . splitAt (n - 1)
