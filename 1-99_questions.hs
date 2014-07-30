@@ -179,3 +179,13 @@ removeAt' n = (\(a, b) -> (head b, a ++ tail b)) . splitAt (n - 1)
 {----#21----}
 insertAt :: a -> [a] -> Int -> [a]
 insertAt x xs i = let (left, right) = splitAt(i - 1) xs in left ++ x:right
+
+{----#22----}
+range :: Int -> Int -> [Int]
+range i k
+		| i <= k = i : range (i+1) k
+		| otherwise = []
+
+-- using syntactic sugar
+range' :: Int -> Int -> [Int]
+range' i k = [i .. k]
