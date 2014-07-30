@@ -175,3 +175,7 @@ removeAt i list
 -- point free but no error handling
 removeAt' :: Int -> [a] -> (a, [a])
 removeAt' n = (\(a, b) -> (head b, a ++ tail b)) . splitAt (n - 1)
+
+{----#21----}
+insertAt :: a -> [a] -> Int -> [a]
+insertAt x xs i = let (left, right) = splitAt(i - 1) xs in left ++ x:right
