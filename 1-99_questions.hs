@@ -1,3 +1,5 @@
+import System.Random
+
 lastElement :: (Ord a) => [a] -> a
 lastElement []  = error "no elemets"
 lastElement [a] = a
@@ -189,3 +191,13 @@ range i k
 -- using syntactic sugar
 range' :: Int -> Int -> [Int]
 range' i k = [i .. k]
+
+{----#23----}
+rnd_select :: [a] -> Int -> IO[a]
+rnd_select [] _ = return []
+rnd_select list n = do
+	  			gen <- newStdGen
+	  			let indexes = take n $ randomRs (0, length list - 1) gen
+	  				in return $ map (\x -> list !! x) indexes
+
+
