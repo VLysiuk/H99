@@ -1,5 +1,7 @@
 {--- https://www.haskell.org/haskellwiki/99_questions/21_to_28 ---}
 import System.Random
+import Control.Applicative
+import Data.List
 
 {----#21----}
 {-- Insert an element at a given position into a list. --}
@@ -27,3 +29,7 @@ rnd_select list n = do
 	  				in return $ map (\x -> list !! x) indexes
 
 
+{----#24----}
+{-- Lotto: Draw N different random numbers from the set 1..M. --}
+diff_select :: Int -> Int -> IO[Int]
+diff_select n m = take n . nub . randomRs (1, m) <$> newStdGen
