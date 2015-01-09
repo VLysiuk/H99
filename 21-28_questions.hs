@@ -33,3 +33,14 @@ rnd_select list n = do
 {-- Lotto: Draw N different random numbers from the set 1..M. --}
 diff_select :: Int -> Int -> IO[Int]
 diff_select n m = take n . nub . randomRs (1, m) <$> newStdGen
+
+{----#25----}
+{-- Generate a random permutation of the elements of a list. --}
+rnd_permu :: [a] -> IO[a]
+rnd_permu [] = return []
+rnd_permu list = do
+	  			gen <- newStdGen
+	  			let 
+		  			l = length list
+		  			indexes = take l . nub $ randomRs (0, l - 1) gen
+	  				in return $ map (\x -> list !! x) indexes
